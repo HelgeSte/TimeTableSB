@@ -1,0 +1,5 @@
+Used the following commands to create the timetable user and grant him all privileges
+on the TimeTable database:
+mysql> CREATE USER 'timetable'@'localhost' IDENTIFIED BY 'TimeListe2022';
+mysql> GRANT ALL PRIVILEGES ON TimeTable.* TO 'timetable'@'localhost';
+mysql>
