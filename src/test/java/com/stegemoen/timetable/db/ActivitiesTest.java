@@ -1,5 +1,6 @@
 package com.stegemoen.timetable.db;
 
+
 import org.junit.jupiter.api.Test;
 
 class ActivitiesTest {
