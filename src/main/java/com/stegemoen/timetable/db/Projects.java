@@ -37,17 +37,6 @@ public class Projects {
        }
        return -1;
    }
-    public boolean disableProject(int id){
-        try(Connection conn = DbUtilities.getConnection();
-            Statement stat = conn.createStatement()){
-            stat.executeUpdate("DELETE FROM customers WHERE CustomerId=" + id);
-            return true;
-
-        } catch(IOException|SQLException e){
-            System.out.println(e.getMessage());
-            return false;
-        }
-    }
 
     public List<Project> getProjects(){ // ToDo: Add getUser(int id), getCustomer(int id)
         List<Project> projects = new ArrayList<>();
@@ -66,16 +55,55 @@ public class Projects {
         }*/
         return projects;
     }
-    public boolean deleteProject(int id){
-        try(Connection conn = DbUtilities.getConnection();
-            Statement stat = conn.createStatement()){
+    public boolean deleteProject(int id) {
+        try (Connection conn = DbUtilities.getConnection();
+             Statement stat = conn.createStatement()) {
             stat.executeUpdate("DELETE FROM Projects WHERE ProjectID =" + id);
             return true;
 
-        } catch(IOException|SQLException e){
+        } catch (IOException | SQLException e) {
             System.out.println(e.getMessage());
             return false;
         }
+    }
+
+    public void disableProject(int id){
+       try(Connection conn = DbUtilities.getConnection();
+       Statement stat = conn.createStatement()){
+           String updateQuery = String.format(
+                   "UPDATE Projects SET activity=true WHERE ProjectID=%d;",
+                   id);
+       } catch(IOException|SQLException e){
+           System.out.println(e.getMessage());
+       }
+    }
+
+    public Project getProject(int id){
+       Project p;
+       try(Connection conn = DbUtilities.getConnection();
+       Statement stat = conn.createStatement()){
+            String query = String.format(
+                    "SELECT ProjectName, CustomerID, UserID, isActive FROM Projects " +
+                            "WHERE UserID = %d", id);
+            try(ResultSet result = stat.executeQuery(query)){
+                String name;
+                int cid;
+                int uid = -1;
+                boolean isActive;
+                if(result.next()){
+                    name = result.getString(1);
+                    cid = result.getInt(2);
+                    uid = result.getInt(3);
+                    isActive = result.getBoolean(4);
+                }
+                // ToDo: create method to get user and customer object from id
+                //Customer c = Customers.getCustomer(int cid);
+                //User u = Users.getUser(int uid);
+            }
+       }catch(SQLException|IOException e){
+           System.out.println(e.getMessage());
+       }
+       return null;
     }
 
 }
