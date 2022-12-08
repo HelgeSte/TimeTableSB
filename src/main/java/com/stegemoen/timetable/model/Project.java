@@ -9,6 +9,7 @@ import java.util.Objects;
  */
 public class Project {
     String projectName;
+    Boolean active;
     Customer customer;
     User projectManager;
     int CustomerID = -1; // -1 = error condition, because all projects should have a customer
@@ -25,6 +26,7 @@ public class Project {
         this.projectName = projectName;
         this.customer = customer;
         this.projectManager = projectManager;
+        this.active = true;
     }
 
     public String getProjectName() {
@@ -70,6 +72,18 @@ public class Project {
     // It should be possible to change the project manager
     public void setUserID(int userID) {
         UserID = userID;
+    }
+
+    public Boolean isActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public void setCustomerID(int customerID) {
+        CustomerID = customerID;
     }
 
     @Override

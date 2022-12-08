@@ -3,6 +3,7 @@ import java.io.*;
 import java.util.Objects;
 
 public class User implements Serializable {
+    // ToDo: Refactor: rename User table and class to Employee, when adding Contacts.
     //private static int userIdCounter;
     //public int userId;
     private String firstName;
