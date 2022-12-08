@@ -49,8 +49,19 @@ public class Customers {
         return customers;
     }
 
-    public String findValue(String column, String value){
-        return null;
+    public Customer getObject(int id){
+        try(Connection conn = DbUtilities.getConnection();
+        Statement stat = conn.createStatement()){
+            String query = String.format(
+                    "SELECT CustomerName FROM Customers WHERE id=%d;",
+                    id);
+            try(ResultSet result = stat.executeQuery(query)){
+                return new Customer("CustomerName");
+            }
+        } catch(IOException|SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     public boolean deleteCustomer(int id){

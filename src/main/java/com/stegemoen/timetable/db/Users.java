@@ -73,26 +73,26 @@ public class Users {
         return users;
     }
 
-    Boolean findUserId(int value){
-        List<User> users = new ArrayList<>();
+    public User getObject(int id){
         try(Connection conn = DbUtilities.getConnection();
             Statement stat = conn.createStatement()){
-            String query = "SELECT FirstName, LastName, Email, Password FROM Users WHERE "
-                    + "UserId = + value;";
+            String query = String.format(
+                    "SELECT FirstName, LastName, Email, Password FROM Users WHERE id=",
+                    id);
             try(ResultSet result = stat.executeQuery(query)){
-                while(result.next()){
+                if(result.next()){
                     String s1 = result.getString(1);
                     String s2 = result.getString(2);
                     String s3 = result.getString(3);
                     String s4 = result.getString(4);
-                    users.add(new User(s1, s2, s3, s4));
+                    return new User(s1, s2, s3, s4);
                 }
             }
         } catch(IOException|SQLException e){
             System.out.println(e.getMessage());
-            return false;
+            return null;
         }
-        return true;
+        return null;
     }
 
     boolean deleteUser(int id){

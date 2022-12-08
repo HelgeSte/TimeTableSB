@@ -15,20 +15,18 @@ import java.util.List;
 public class Projects {
     // ToDo: Create a contact class and add field for ContactID in db & Projects class.
    List<Project> projects = new ArrayList<>();
-   public int saveToDb(Project p){
+   public int saveToDb(Project p, int cid, int uid){
        // Add User to Users db and get UserID:
-       int userId = (new Users()).saveToDB(p.getProjectManager());
        // Add Customer to Customers db and get CustomerID:
-       int customerId = (new Customers()).saveToDB(p.getCustomer());
        try(Connection conn = DbUtilities.getConnection();
 
 
            Statement stat = conn.createStatement()){
            String insertQuery =
                    String.format("INSERT INTO projects(ProjectName,isActive, UserID, CustomerID) VALUES('%s', %b, %d, %d);",
-                           p.getProjectName(), p.isActive(), userId, customerId);
+                           p.getProjectName(), p.isActive(), uid, cid);
            stat.executeUpdate(insertQuery);
-           try(ResultSet returnValue = stat.executeQuery("@@IDENTITY")){
+           try(ResultSet returnValue = stat.executeQuery("SELECT @@IDENTITY")){
                 if(returnValue.next())
                     return returnValue.getInt(1);
            }
@@ -78,7 +76,7 @@ public class Projects {
        }
     }
 
-    public Project getProject(int id){
+    public Project getObject(int id){
        Project p;
        try(Connection conn = DbUtilities.getConnection();
        Statement stat = conn.createStatement()){
@@ -87,7 +85,7 @@ public class Projects {
                             "WHERE UserID = %d", id);
             try(ResultSet result = stat.executeQuery(query)){
                 String name;
-                int cid;
+                int cid = -1;
                 int uid = -1;
                 boolean isActive;
                 if(result.next()){
@@ -97,8 +95,8 @@ public class Projects {
                     isActive = result.getBoolean(4);
                 }
                 // ToDo: create method to get user and customer object from id
-                //Customer c = Customers.getCustomer(int cid);
-                //User u = Users.getUser(int uid);
+                Customer c = (new Customers()).getObject(cid);
+                User u = (new Users()).getObject(uid);
             }
        }catch(SQLException|IOException e){
            System.out.println(e.getMessage());

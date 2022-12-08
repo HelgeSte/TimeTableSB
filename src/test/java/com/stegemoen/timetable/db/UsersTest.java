@@ -2,7 +2,6 @@ package com.stegemoen.timetable.db;
 import com.stegemoen.timetable.model.User;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -103,7 +102,7 @@ class UsersTest {
         Users u = new Users();
         int rmId = userId.get(0);
         u.deleteUser(rmId);
-        assertFalse(new Users().findUserId(rmId));
+        //assertFalse(new Users().getObject(rmId));
     }
 
     @AfterAll
