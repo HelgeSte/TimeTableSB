@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ProjectsTest {
+    // Pest og kolera
     private static Project project;
     private static Employee homer;
     private static Customer duff;
