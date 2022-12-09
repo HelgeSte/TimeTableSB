@@ -1,6 +1,5 @@
 package com.stegemoen.timetable.model;
 import java.time.LocalDate;
-import java.util.Calendar;
 import java.io.*;
 import java.util.Objects;
 
@@ -9,27 +8,27 @@ public class Activity implements Serializable {
     private LocalDate start;
     private double hours;    // hours used
     public Project m_Project;
-    public User m_User;
+    public Employee m_Employee;
 
 
-    public Activity(Project m_Project, User m_User) {
+    public Activity(Project m_Project, Employee m_Employee) {
         this.m_Project = m_Project;
-        this.m_User = m_User;
+        this.m_Employee = m_Employee;
     }
     
-    public Activity(String comment, Project m_Project, User m_User, 
+    public Activity(String comment, Project m_Project, Employee m_Employee,
             LocalDate start, double hours) {
         this.comment = comment;
         this.m_Project = m_Project;
-        this.m_User = m_User;
+        this.m_Employee = m_Employee;
         this.start = start;
         this.hours = hours;
     }
     
     @Override
     public String toString(){
-        return m_Project.getProjectName() + "\t" + m_User.getFirstName() + " "
-                + m_User.getLastName() + "\t" + this.comment;
+        return m_Project.getProjectName() + "\t" + m_Employee.getFirstName() + " "
+                + m_Employee.getLastName() + "\t" + this.comment;
     }
 
     // getters / setters
@@ -70,12 +69,12 @@ public class Activity implements Serializable {
         this.m_Project = m_Prosjekt;
     }
 
-    public User getM_User() {
-        return m_User;
+    public Employee getM_User() {
+        return m_Employee;
     }
 
-    public void setM_User(User m_User) {
-        this.m_User = m_User;
+    public void setM_User(Employee m_Employee) {
+        this.m_Employee = m_Employee;
     }
 
     @Override
@@ -83,11 +82,11 @@ public class Activity implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Activity activity = (Activity) o;
-        return Double.compare(activity.hours, hours) == 0 && Objects.equals(start, activity.start) && Objects.equals(m_Project, activity.m_Project) && Objects.equals(m_User, activity.m_User);
+        return Double.compare(activity.hours, hours) == 0 && Objects.equals(start, activity.start) && Objects.equals(m_Project, activity.m_Project) && Objects.equals(m_Employee, activity.m_Employee);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(start, hours, m_Project, m_User);
+        return Objects.hash(start, hours, m_Project, m_Employee);
     }
 }

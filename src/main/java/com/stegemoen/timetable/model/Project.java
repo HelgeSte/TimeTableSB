@@ -1,6 +1,4 @@
 package com.stegemoen.timetable.model;
-import java.util.Calendar;
-import java.io.*;
 import java.util.Objects;
 
 /**
@@ -11,14 +9,22 @@ public class Project {
     String projectName;
     Boolean active;
     Customer customer;
-    User projectManager;
+    Employee projectManager;
+    int projectID = 0;
     int CustomerID = -1; // -1 = error condition, because all projects should have a customer
-    int UserID = 0;     // 0 = not an error, because a project manager might be assigned later
+    int EmployeeID = 0;     // 0 = not an error, because a project manager might be assigned later
 
-    public Project(String projectName, Customer customer, User projectManager) {
+    public Project(String projectName, Customer customer, Employee projectManager) {
         this.projectName = projectName;
         this.customer = customer;
         this.projectManager = projectManager;
+    }
+
+    public Project(String projectName, Customer customer, Employee projectManager, int projectID) {
+        this.projectName = projectName;
+        this.customer = customer;
+        this.projectManager = projectManager;
+        this.projectID = projectID;
     }
 
     // Not used yet, but it should be possible to crate a project without a project manager
@@ -45,11 +51,11 @@ public class Project {
         this.customer = customer;
     }
 
-    public User getProjectManager() {
+    public Employee getProjectManager() {
         return projectManager;
     }
 
-    public void setProjectManager(User projectManager) {
+    public void setProjectManager(Employee projectManager) {
         this.projectManager = projectManager;
     }
 
@@ -60,18 +66,18 @@ public class Project {
         return CustomerID;
     }
 
-    public int getUserID() {
-        return UserID;
+    public int getEmployeeID() {
+        return EmployeeID;
     }
 
-    public int getUserID(User user){
+    public int getEmployeeID(Employee employee){
         // ToDo: code for finding a user in the database and return the userID
         return -1;
     }
 
     // It should be possible to change the project manager
-    public void setUserID(int userID) {
-        UserID = userID;
+    public void setEmployeeID(int employeeID) {
+        EmployeeID = employeeID;
     }
 
     public Boolean isActive() {
@@ -84,6 +90,14 @@ public class Project {
 
     public void setCustomerID(int customerID) {
         CustomerID = customerID;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public int getProjectID() {
+        return projectID;
     }
 
     @Override

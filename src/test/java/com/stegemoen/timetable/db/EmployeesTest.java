@@ -1,5 +1,5 @@
 package com.stegemoen.timetable.db;
-import com.stegemoen.timetable.model.User;
+import com.stegemoen.timetable.model.Employee;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -11,33 +11,33 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class UsersTest {
+class EmployeesTest {
     static List<Integer> userId = new ArrayList<>();
-    static User homer = new User(
+    static Employee homer = new Employee(
             "Homer",
             "Simpson",
             "homer.simpson@moes.com",
             "TopSecretNoHumbug"
     );
-    static User marge = new User(
+    static Employee marge = new Employee(
             "Marge",
             "Simpson",
             "marge.simpson@springfield.com",
             "HomerJay_01"
     );
-    static User peter = new User(
+    static Employee peter = new Employee(
             "Peter",
             "Griffin",
             "peter.griffin@thebird.com",
             "BirdsTheWord"
     );
-    static User donald = new User(
+    static Employee donald = new Employee(
             "Donald",
             "Duck",
             "donald.duck@theangryduck.com",
             "Daisy<3"
     );
-    static User daisy = new User(
+    static Employee daisy = new Employee(
             "Daisy",
             "Duck",
             "daisy@duckies.com",
@@ -45,7 +45,7 @@ class UsersTest {
     );
     @BeforeAll
     public static void addTestUsers(){
-        Users u = new Users();
+        Employees u = new Employees();
         userId.add(u.saveToDB(homer));
         userId.add(u.saveToDB(marge));
         userId.add(u.saveToDB(peter));
@@ -65,52 +65,49 @@ class UsersTest {
 
     @Test
     public void testGetUsers() throws SQLException, IOException {
-        List<User> users = new Users().getUsers();
-        User marge = new User(
+        List<Employee> employees = new Employees().getElementsFromDB();
+        Employee marge = new Employee(
                 "Marge",
                 "Simpson",
                 "marge.simpson@springfield.com",
                 "HomerJay_01"
         );
-        assertTrue(users.contains(marge));
+        assertTrue(employees.contains(marge));
     }
 
     @Test
     public void findUserByEmail(){
-        List<User> users = new Users().findValue("Email", "springfield");
-        users.stream().forEach(System.out::println);
-        assertTrue(users.size() > 0);
+        List<Employee> employees = new Employees().findValue("Email", "springfield");
+        assertTrue(employees.size() > 0);
     }
 
     @Test
     public void findUsersByFirstname(){
-        List<User> users = new Users().findValue("FirstName", "Daisy");
-        users.stream().forEach(System.out::println);
-        assertTrue(users.size() > 0);
+        List<Employee> employees = new Employees().findValue("FirstName", "Daisy");
+        assertTrue(employees.size() > 0);
 
     }
 
     @Test
     public void findUsersByLastName(){
-        List<User> users = new Users().findValue("LastName", "simp");
-        users.stream().forEach(System.out::println);
-        assertTrue(users.size() > 0);
+        List<Employee> employees = new Employees().findValue("LastName", "simp");
+        assertTrue(employees.size() > 0);
     }
 
     @Test
     public void deleteTestUser() throws IOException, SQLException{
-        Users u = new Users();
+        Employees u = new Employees();
         int rmId = userId.get(0);
-        u.deleteUser(rmId);
+        u.deleteElement(rmId);
         //assertFalse(new Users().getObject(rmId));
     }
 
     @AfterAll
     public static void deleteTestUsers() throws IOException, SQLException{
-        Users u = new Users();
-        u.deleteUser(userId.get(1));
-        u.deleteUser(userId.get(2));
-        u.deleteUser(userId.get(3));
-        u.deleteUser(userId.get(4));
+        Employees u = new Employees();
+        u.deleteElement(userId.get(1));
+        u.deleteElement(userId.get(2));
+        u.deleteElement(userId.get(3));
+        u.deleteElement(userId.get(4));
     }
 }

@@ -1,8 +1,8 @@
 package com.stegemoen.timetable.db;
 
 import com.stegemoen.timetable.model.Customer;
+import com.stegemoen.timetable.model.Employee;
 import com.stegemoen.timetable.model.Project;
-import com.stegemoen.timetable.model.User;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ProjectsTest {
     private static Project project;
-    private static User homer;
+    private static Employee homer;
     private static Customer duff;
     private static int projectId = 0;
     private static int uid = 0;
@@ -20,12 +20,12 @@ class ProjectsTest {
 
     @BeforeAll
     public static void beforeAll(){
-        homer = new User("Homer", "Simpson", "homie@simps.rus", "123");
+        homer = new Employee("Homer", "Simpson", "homie@simps.rus", "123");
         duff = new Customer("Duff Beer");
         project = new Project("Saving monday evening", duff, homer);
         cid = (new Customers()).saveToDB(duff);
-        uid = (new Users()).saveToDB(homer);
-        projectId = (new Projects()).saveToDb(project, cid, uid);
+        uid = (new Employees()).saveToDB(homer);
+        projectId = (new Projects()).saveToDB(project, cid, uid);
     }
 
     @Test
@@ -34,7 +34,7 @@ class ProjectsTest {
     }
 
     @Test
-    public void testUserAddedToDB(){
+    public void testEmployeeAddedToDB(){
         assertTrue(uid > 0);
     }
     @Test
@@ -51,7 +51,7 @@ class ProjectsTest {
 
     @Test
     public void testLoadProjectsFromDB(){
-        // ToDo, test if contains activty from previous test
+        var pList = (new Projects()).getElementsFromDB();
     }
 
 }

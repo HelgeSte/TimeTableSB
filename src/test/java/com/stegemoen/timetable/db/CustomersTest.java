@@ -32,7 +32,7 @@ class CustomersTest {
 
     @Test
     public void testGetCustomers() throws SQLException, IOException {
-        List<Customer> customers = new Customers().getCustomers();
+        List<Customer> customers = new Customers().getElementsFromDB();
         Customer customer = new Customer(
                 "Apple");
         assertTrue(customers.contains(customer));
@@ -42,7 +42,7 @@ class CustomersTest {
     public static void deleteCustomers() {
         for(int i : idList ) {
             Customers customers = new Customers();
-            customers.deleteCustomer(i);
+            customers.deleteElement(i);
         }
     }
 }

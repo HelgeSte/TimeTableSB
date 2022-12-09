@@ -8,10 +8,15 @@ import java.util.Objects;
 
 public class Customer implements Serializable {
     private String companyName;
+    private int customerID = 0;
 
 
     public Customer( String companyName) {
         this.companyName = companyName;
+    }
+    public Customer( String companyName, int id) {
+        this.companyName = companyName;
+        this.customerID = id;
     }
 
     public String getCompanyName() {

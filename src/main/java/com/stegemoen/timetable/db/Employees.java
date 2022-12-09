@@ -1,22 +1,24 @@
 package com.stegemoen.timetable.db;
 
-import com.stegemoen.timetable.model.User;
+import com.stegemoen.timetable.model.Employee;
+
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Users {
-    public int saveToDB(User user) {
+// ToDo: Add LocalDate birthday
+public class Employees implements iTimeTableDB<Employee>, iSave<Employee> {
+    public int saveToDB(Employee employee) {
         int retval = -1;
        try (Connection conn = DbUtilities.getConnection();
        Statement stat = conn.createStatement()){
-           String insertQuery = "INSERT INTO users(FirstName, LastName, Email, Password)" +
+           String insertQuery = "INSERT INTO Employees(FirstName, LastName, Email, Password)" +
                    " VALUES ('" +
-                   user.getFirstName() + "','" +
-                   user.getLastName() + "','" +
-                   user.getEmail() + "','" +
-                   user.getPassword() + "');";
+                   employee.getFirstName() + "','" +
+                   employee.getLastName() + "','" +
+                   employee.getEmail() + "','" +
+                   employee.getPassword() + "');";
            stat.executeUpdate(insertQuery);
            try(ResultSet returnValue = stat.executeQuery("SELECT @@IDENTITY")){
                if(returnValue.next())
@@ -30,32 +32,33 @@ public class Users {
         return -1;
     }
 
-    public List<User> getUsers() throws SQLException, IOException{
-        List<User> users = new ArrayList<>();
+    public List<Employee> getElementsFromDB() throws SQLException, IOException{
+        List<Employee> employees = new ArrayList<>();
         try (Connection conn = DbUtilities.getConnection();
              Statement stat = conn.createStatement())
         {
-            try (ResultSet result = stat.executeQuery("SELECT * FROM users");)
+            try (ResultSet result = stat.executeQuery(
+                    "SELECT FirstName,LastName,Email,EmployeeID FROM Employees");)
             {
                 while (result.next()){
-                    var s2 = result.getString(2);
-                    var s3 = result.getString(3);
-                    var s4 = result.getString(4);
-                    var s5 = result.getString(5);
-                    users.add(new User(
-                            s2, s3, s4, s5
+                    String s1 = result.getString(1);
+                    String s2 = result.getString(2);
+                    String s3 = result.getString(3);
+                    int id = result.getInt(4);
+                    employees.add(new Employee(
+                            s1, s2, s3, id
                     ));
                 }
             }
         }
-        return users;
+        return employees;
     }
 
-    List<User> findValue(String column, String value){
-        List<User> users = new ArrayList<>();
+    List<Employee> findValue(String column, String value){
+        List<Employee> employees = new ArrayList<>();
         try(Connection conn = DbUtilities.getConnection();
         Statement stat = conn.createStatement()){
-            String query = "SELECT FirstName, LastName, Email, Password FROM Users WHERE "
+            String query = "SELECT FirstName, LastName, Email, Password FROM Employees WHERE "
                     + column + " LIKE '%" + value + "%';";
             try(ResultSet result = stat.executeQuery(query)){
                 while(result.next()){
@@ -63,21 +66,21 @@ public class Users {
                     String s2 = result.getString(2);
                     String s3 = result.getString(3);
                     String s4 = result.getString(4);
-                    users.add(new User(s1, s2, s3, s4));
+                    employees.add(new Employee(s1, s2, s3, s4));
                 }
             }
         } catch(IOException|SQLException e){
             System.out.println(e.getMessage());
             return null;
         }
-        return users;
+        return employees;
     }
 
-    public User getObject(int id){
+    public Employee getElement(int id){
         try(Connection conn = DbUtilities.getConnection();
             Statement stat = conn.createStatement()){
             String query = String.format(
-                    "SELECT FirstName, LastName, Email, Password FROM Users WHERE id=",
+                    "SELECT FirstName, LastName, Email, Password FROM Employees WHERE EmployeeID=%d;",
                     id);
             try(ResultSet result = stat.executeQuery(query)){
                 if(result.next()){
@@ -85,7 +88,7 @@ public class Users {
                     String s2 = result.getString(2);
                     String s3 = result.getString(3);
                     String s4 = result.getString(4);
-                    return new User(s1, s2, s3, s4);
+                    return new Employee(s1, s2, s3, s4);
                 }
             }
         } catch(IOException|SQLException e){
@@ -95,10 +98,10 @@ public class Users {
         return null;
     }
 
-    boolean deleteUser(int id){
+    public boolean deleteElement(int id){
         try (Connection conn = DbUtilities.getConnection();
              Statement stat = conn.createStatement()){
-             stat.executeUpdate("DELETE FROM users WHERE UserId=" + id);
+             stat.executeUpdate("DELETE FROM Employees WHERE EmployeeID=" + id);
             return true;
 
         } catch(SQLException|IOException e){

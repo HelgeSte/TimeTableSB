@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Customers {
+public class Customers implements iTimeTableDB<Customer>, iSave<Customer> {
     public int saveToDB(Customer customer){
         int retval = -1;
         try(Connection conn = DbUtilities.getConnection();
@@ -32,14 +32,15 @@ public class Customers {
         return -1;
     }
 
-    public List<Customer> getCustomers(){
+    public List<Customer> getElementsFromDB(){
         List<Customer> customers = new ArrayList<>();
         try(Connection conn = DbUtilities.getConnection();
         Statement stat = conn.createStatement()){
-            try (ResultSet result = stat.executeQuery("SELECT CompanyName FROM customers")){
+            try (ResultSet result = stat.executeQuery("SELECT CompanyName,CustomerID FROM customers")){
                 while(result.next()){
                     String s1 = result.getString(1);
-                    customers.add(new Customer(s1));
+                    int id = result.getInt(2);
+                    customers.add(new Customer(s1, id));
                 }
             }
 
@@ -49,14 +50,14 @@ public class Customers {
         return customers;
     }
 
-    public Customer getObject(int id){
+    public Customer getElement(int id){
         try(Connection conn = DbUtilities.getConnection();
         Statement stat = conn.createStatement()){
             String query = String.format(
-                    "SELECT CustomerName FROM Customers WHERE id=%d;",
+                    "SELECT CompanyName FROM Customers WHERE CustomerID=%d;",
                     id);
             try(ResultSet result = stat.executeQuery(query)){
-                return new Customer("CustomerName");
+                return new Customer("CompanyName");
             }
         } catch(IOException|SQLException e){
             System.out.println(e.getMessage());
@@ -64,7 +65,7 @@ public class Customers {
         }
     }
 
-    public boolean deleteCustomer(int id){
+    public boolean deleteElement(int id){
         try(Connection conn = DbUtilities.getConnection();
         Statement stat = conn.createStatement()){
             stat.executeUpdate("DELETE FROM customers WHERE CustomerId=" + id);
