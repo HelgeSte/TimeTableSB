@@ -13,11 +13,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CustomersTest {
     static List<Customers> customers = new ArrayList<>();
-    static Customer apple = new Customer("Apple");
-    static Customer cisco = new Customer("Cisco");
-    static Customer nvidia = new Customer("Nvidia");
-    static Customer kylotonn = new Customer("Kylotonn");
-    static Customer tine = new Customer("Tine");
+    static Customer apple = new Customer("The Fake Apple");
+    static Customer cisco = new Customer("The Fake Cisco");
+    static Customer nvidia = new Customer("The Fake Nvidia");
+    static Customer kylotonn = new Customer("The Fake Kylotonn");
+    static Customer tine = new Customer("The Fake Tine");
     static List<Integer> idList = new ArrayList<>();
     @BeforeAll
     public static void testAddUsers(){
@@ -34,15 +34,19 @@ class CustomersTest {
     public void testGetCustomers() throws SQLException, IOException {
         List<Customer> customers = new Customers().getElementsFromDB();
         Customer customer = new Customer(
-                "Apple");
+                "The Fake Apple");
         assertTrue(customers.contains(customer));
     }
 
-    @AfterAll
-    public static void deleteCustomers() {
+    @Test
+    public void testDeleteCustomer(){
         for(int i : idList ) {
             Customers customers = new Customers();
             customers.deleteElement(i);
         }
+        long remaining = (new Customers()).getElementsFromDB().stream()
+                .filter(x -> x.getCompanyName().contains("The Fake ")).count();
+        assertTrue(remaining==0);
     }
+
 }

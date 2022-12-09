@@ -3,7 +3,7 @@ package com.stegemoen.timetable.model;
 public class Contact extends Person {
     Customer company;
     String phone;
-    int ContactIdFromDB = 0;
+    int contactID = 0;
 
     public Contact(String firstName, String lastName, String email, String phone, Customer company){
         super(firstName, lastName, email);
@@ -15,7 +15,7 @@ public class Contact extends Person {
         super(firstName, lastName, email);
         this.company = company;
         this.phone = phone;
-        this.ContactIdFromDB = ContactIdFromDB;
+        this.contactID = ContactIdFromDB;
     }
 
     public String getFullName(){
@@ -38,7 +38,7 @@ public class Contact extends Person {
         this.phone = phone;
     }
 
-    public int getContactIdFromDB() {
-        return ContactIdFromDB;
+    public int getContactID() {
+        return contactID;
     }
 }

@@ -19,4 +19,9 @@ class ActivitiesTest {
         // Use method that use SELECT to find one specific activity
     }
 
+    @Test
+    public void testDelete(){
+        // ToDo:
+    }
+
 }
