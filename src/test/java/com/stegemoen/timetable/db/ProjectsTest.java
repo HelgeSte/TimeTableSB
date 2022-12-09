@@ -3,14 +3,18 @@ package com.stegemoen.timetable.db;
 import com.stegemoen.timetable.model.Customer;
 import com.stegemoen.timetable.model.Employee;
 import com.stegemoen.timetable.model.Project;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ProjectsTest {
-    // Pest og kolera
     private static Project project;
     private static Employee homer;
     private static Customer duff;
@@ -21,9 +25,9 @@ class ProjectsTest {
 
     @BeforeAll
     public static void beforeAll(){
-        homer = new Employee("Homer", "Simpson", "homie@simps.rus", "123");
-        duff = new Customer("Duff Beer");
-        project = new Project("Saving monday evening", duff, homer);
+        homer = new Employee("Homer", "Simpson", "fake@fakeemail12345.com", "123");
+        duff = new Customer("The Fake Duff Beer");
+        project = new Project("The Fake Project", duff, homer);
         cid = (new Customers()).saveToDB(duff);
         uid = (new Employees()).saveToDB(homer);
         projectId = (new Projects()).saveToDB(project, cid, uid);
@@ -45,9 +49,9 @@ class ProjectsTest {
 
     @Test
     public void testObjectsCreated(){
-        assertEquals("Homer", project.getProjectManager().getFirstName());
-        assertEquals("Duff Beer", duff.getCompanyName());
-        assertEquals("Saving monday evening", project.getProjectName());
+        assertEquals("fake@fakeemail12345.com", project.getProjectManager().getEmail());
+        assertEquals("The Fake Duff Beer", duff.getCompanyName());
+        assertEquals("The Fake Project", project.getProjectName());
     }
 
     @Test
@@ -55,4 +59,19 @@ class ProjectsTest {
         var pList = (new Projects()).getElementsFromDB();
     }
 
+    @Test
+    public void testDeleteProject(){
+        var plist = (new Projects()).getElementsFromDB().stream()
+                .filter(x -> x.getProjectName().equals("The Fake Project"))
+                .collect(Collectors.toList());
+        plist.stream().forEach(p -> (new Projects()).deleteElement(p.getProjectID()));
+    }
+
+    @AfterAll
+    public static void deleteCustomerAndEmployee() throws IOException, SQLException {
+        var addedEmployees = (new Employees()).getElementsFromDB().stream()
+                .filter(x -> x.getEmail().equals("fake@fakeemail12345.com")).toList();
+        var addedCustomers = (new Customers()).getElementsFromDB().stream()
+                .filter(x -> x.getCompanyName().contains("The Fake Duff Beer")).toList();
+    }
 }

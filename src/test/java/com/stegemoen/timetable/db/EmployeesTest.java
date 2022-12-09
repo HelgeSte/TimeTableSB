@@ -7,40 +7,40 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class EmployeesTest {
     static List<Integer> userId = new ArrayList<>();
     static Employee homer = new Employee(
             "Homer",
             "Simpson",
-            "homer.simpson@moes.com",
+            "fake@fakeemail12345.com",
             "TopSecretNoHumbug"
     );
     static Employee marge = new Employee(
             "Marge",
             "Simpson",
-            "marge.simpson@springfield.com",
+            "fake@fakeemail12345.com",
             "HomerJay_01"
     );
     static Employee peter = new Employee(
             "Peter",
             "Griffin",
-            "peter.griffin@thebird.com",
+            "fake@fakeemail12345.com",
             "BirdsTheWord"
     );
     static Employee donald = new Employee(
             "Donald",
             "Duck",
-            "donald.duck@theangryduck.com",
+            "fake@fakeemail12345.com",
             "Daisy<3"
     );
     static Employee daisy = new Employee(
             "Daisy",
             "Duck",
-            "daisy@duckies.com",
+            "fake@fakeemail12345.com",
             "Donald313"
     );
     @BeforeAll
@@ -69,7 +69,7 @@ class EmployeesTest {
         Employee marge = new Employee(
                 "Marge",
                 "Simpson",
-                "marge.simpson@springfield.com",
+                "fake@fakeemail12345.com",
                 "HomerJay_01"
         );
         assertTrue(employees.contains(marge));
@@ -77,7 +77,7 @@ class EmployeesTest {
 
     @Test
     public void findUserByEmail(){
-        List<Employee> employees = new Employees().findValue("Email", "springfield");
+        List<Employee> employees = new Employees().findValue("Email", "fakeemail12345.com");
         assertTrue(employees.size() > 0);
     }
 
@@ -96,10 +96,14 @@ class EmployeesTest {
 
     @Test
     public void deleteTestUser() throws IOException, SQLException{
-        Employees u = new Employees();
-        int rmId = userId.get(0);
-        u.deleteElement(rmId);
-        //assertFalse(new Users().getObject(rmId));
+        var elist = (new Employees()).getElementsFromDB().stream()
+                .filter(x -> x.getEmail().equals("fake@fakeemail12345.com"))
+                .collect(Collectors.toList());
+        elist.stream().forEach(e -> (new Employees()).deleteElement(e.getEmployeeID()));
+        var simpsonCount = (new Employees()).getElementsFromDB().stream()
+                .filter(x -> x.getEmail().equals("fake@fakeemail12345.com"))
+                .collect(Collectors.toList()).size();
+        assertEquals(0, simpsonCount);
     }
 
     @AfterAll
