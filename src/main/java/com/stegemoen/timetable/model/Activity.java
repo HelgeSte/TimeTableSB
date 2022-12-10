@@ -9,6 +9,7 @@ public class Activity implements Serializable {
     private LocalDate date;
     private LocalDateTime start;
     private LocalDateTime end;
+    private boolean finished;
     /*public Project m_Project;
     public Employee m_Employee;*/
 
@@ -28,12 +29,12 @@ public class Activity implements Serializable {
 
 
     public Activity(String comment,
-                    LocalDate date,LocalDateTime start, LocalDateTime end) {
+                    LocalDate date,LocalDateTime start) {
         this.comment = comment;
         /*this.m_Project = m_Project;
         this.m_Employee = m_Employee;*/
         this.date = date;
-        this.end = end;
+        this.start = start;
     }
 
     // getters / setters
@@ -68,5 +69,23 @@ public class Activity implements Serializable {
 
     public void setEnd(LocalDateTime end) {
         this.end = end;
+    }
+
+    public void setFinished(boolean finished) {
+        this.finished = finished;
+    }
+
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public int getUsedTime(){
+        /* ToDo: Check if this code can be replaced with Epoch time. If not,
+            then consider using day of the year, to avoid problems when someone
+            is working during midnight.
+        */
+        var minutes =  this.end.getMinute() - this.start.getMinute();
+        int hours = this.end.getHour() - this.start.getHour();
+        return minutes + hours * 60;
     }
 }
