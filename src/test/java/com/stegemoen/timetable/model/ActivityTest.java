@@ -1,5 +1,10 @@
 package com.stegemoen.timetable.model;
 
+import com.stegemoen.timetable.db.Activities;
+import com.stegemoen.timetable.db.Customers;
+import com.stegemoen.timetable.db.Employees;
+import com.stegemoen.timetable.db.Projects;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -8,10 +13,26 @@ import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 class ActivityTest {
+    static Activity aTest;
+
+    @BeforeAll
+    static void beforeAll(){
+        aTest = new Activity(
+                "Test activity",
+                LocalDate.of(1994, 10, 30),
+                LocalDateTime.of(LocalDate.now(),
+                        LocalTime.of(10,00)));
+        aTest.setEndTime(LocalDateTime.of(
+                LocalDate.now(),
+                LocalTime.of(12, 45)));
+        aTest.setFinished(true);
+    }
+            /*
+    */
     @Test
     void createObjects(){
         Activity a = new Activity(
-                "Test activity 1",
+                "Test activity 2",
                 LocalDate.of(1994, 10, 30),
                 LocalDateTime.of(LocalDate.now(),
                         LocalTime.of(11,30)));
@@ -26,7 +47,7 @@ class ActivityTest {
     @Test
     void testActivityHours(){
         Activity a = new Activity(
-                "Test activity 1",
+                "Test activity 3",
                 LocalDate.of(1994, 10, 30),
                 LocalDateTime.of(LocalDate.of(2022,12,10),
                         LocalTime.of(22,00)));
@@ -41,7 +62,7 @@ class ActivityTest {
 
     @Test
     void setStart() {
-        Activity act = new Activity("Design Windows 12");
+        Activity act = new Activity("Test Activity 4");
         LocalDate temp = LocalDate.of(1971,5,19);
         act.setCreatedDate(temp);
         LocalDate date = act.getCreatedDate();
@@ -49,6 +70,18 @@ class ActivityTest {
         // Using two different assertEquals to have both as reference for later
         assertEquals(LocalDate.of(1971,05,19), date);
         assertEquals("1971-05-19", date.toString());
+    }
+
+    @Test
+    void addToDB(){
+        Customer c = new Customer("Polly");
+        int cid = (new Customers()).saveToDB(c);
+        Project p = new Project("Fest med Jothepus og MacIvar", c);
+        Employee e = new Employee("Hercules", "Poirot", "hercules@teaparty.co.uk", "AC123");
+        int eid = (new Employees()).saveToDB(e);
+        int pid = (new Projects()).saveToDB(p, cid, eid);
+        int id = (new Activities()).saveToDB(aTest, pid, eid);
+        assertTrue(id > 0);
     }
 
     @Test
