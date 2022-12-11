@@ -1,7 +1,6 @@
 package com.stegemoen.timetable.db;
 
 import com.stegemoen.timetable.model.Contact;
-import com.stegemoen.timetable.model.Customer;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -80,5 +79,4 @@ public class Contacts implements iTimeTableDB<Contact> {
         }
         return false;
     }
-    // ToDo: Continue finding method for the iTimeTable interface, and then code this class
 }

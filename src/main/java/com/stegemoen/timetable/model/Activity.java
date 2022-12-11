@@ -9,14 +9,6 @@ public class Activity implements Serializable {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private boolean finished;
-    public Project m_Project;
-    public Employee m_Employee;
-
-
-    /*public Activity(Project m_Project, Employee m_Employee) {
-        this.m_Project = m_Project;
-        this.m_Employee = m_Employee;
-    }*/
 
     public Activity(String comment) {
         this.comment = comment;
@@ -30,8 +22,6 @@ public class Activity implements Serializable {
     public Activity(String comment,
                     LocalDate date,LocalDateTime start) {
         this.comment = comment;
-        /*this.m_Project = m_Project;
-        this.m_Employee = m_Employee;*/
         this.createdDate = date;
         this.startTime = start;
     }
@@ -98,8 +88,6 @@ public class Activity implements Serializable {
         }
 
         double minutes = endTime.getMinute() - startTime.getMinute();
-
-        double minTing = minutes / 60;
         return hours + minutes / 60;
 
     }
