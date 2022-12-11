@@ -1,7 +1,6 @@
 package com.stegemoen.timetable.model;
 
 public class Employee extends Person {
-    // ToDo: Refactor: rename User table and class to Employee, when adding Contacts.
     private String password;
     private int employeeID; // Used when creating objects from sql queries
 

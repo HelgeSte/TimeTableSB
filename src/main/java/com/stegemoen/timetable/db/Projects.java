@@ -13,11 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Projects implements iTimeTableDB<Project> {
-    // ToDo: Create a contact class and add field for ContactID in db & Projects class.
    List<Project> projects = new ArrayList<>();
    public int saveToDB(Project p, int cid, int eid){
-       // Add User to Users db and get UserID:
-       // Add Customer to Customers db and get CustomerID:
        try(Connection conn = DbUtilities.getConnection();
 
 
@@ -101,7 +98,6 @@ public class Projects implements iTimeTableDB<Project> {
                     uid = result.getInt(3);
                     isActive = result.getBoolean(4);
                 }
-                // ToDo: create method to get user and customer object from id
                 Customer c = (new Customers()).getElement(cid);
                 Employee u = (new Employees()).getElement(uid);
             }

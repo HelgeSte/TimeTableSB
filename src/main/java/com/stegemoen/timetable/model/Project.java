@@ -71,7 +71,6 @@ public class Project {
     }
 
     public int getEmployeeID(Employee employee){
-        // ToDo: code for finding a user in the database and return the userID
         return -1;
     }
 

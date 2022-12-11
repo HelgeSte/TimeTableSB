@@ -66,12 +66,4 @@ class ProjectsTest {
                 .collect(Collectors.toList());
         plist.stream().forEach(p -> (new Projects()).deleteElement(p.getProjectID()));
     }
-
-    @AfterAll
-    public static void deleteCustomerAndEmployee() throws IOException, SQLException {
-        var addedEmployees = (new Employees()).getElementsFromDB().stream()
-                .filter(x -> x.getEmail().equals("fake@fakeemail12345.com")).toList();
-        var addedCustomers = (new Customers()).getElementsFromDB().stream()
-                .filter(x -> x.getCompanyName().contains("The Fake Duff Beer")).toList();
-    }
 }
