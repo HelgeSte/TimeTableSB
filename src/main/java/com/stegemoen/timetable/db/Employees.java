@@ -20,9 +20,9 @@ public class Employees implements iTimeTableDB<Employee>, iSave<Employee> {
                    employee.getEmail() + "','" +
                    employee.getPassword() + "');";
            stat.executeUpdate(insertQuery);
-           try(ResultSet returnValue = stat.executeQuery("SELECT @@IDENTITY")){
+           try(ResultSet returnValue = stat.executeQuery("SELECT @@IDENTITY")){ // Get the ID from last query
                if(returnValue.next())
-                   return returnValue.getInt(1);
+                   return returnValue.getInt(1);    // Returns the ID
            }
         } catch(Exception se){
             System.out.println(se.getMessage());

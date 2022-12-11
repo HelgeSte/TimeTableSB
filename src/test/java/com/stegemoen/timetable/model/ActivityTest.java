@@ -15,38 +15,36 @@ class ActivityTest {
                 LocalDate.of(1994, 10, 30),
                 LocalDateTime.of(LocalDate.now(),
                         LocalTime.of(11,30)));
-        a.setEnd(LocalDateTime.of(
+        a.setEndTime(LocalDateTime.of(
                 LocalDate.now(),
-                LocalTime.of(13, 33)));
+                LocalTime.of(13, 45)));
+        a.setFinished(true);
 
-        /*String startDate = a.getDate().toString();
-        String strStart = a.getStart().toString();
-        String strEnd = a.getEnd().toString();
-        System.out.println(startDate);
-        System.out.println(strStart);
-        System.out.println(strEnd);
-        System.out.println(a.getUsedTime());*/
+        assertEquals(135, a.getActiveMinutes());
+    }
 
-
-        // Different variation of LocalDate, LocalTime and LocalDateTime
-        LocalTime locTime = LocalTime.of(19, 30);
-        LocalTime secTime = LocalTime.of(19,30,41);
-        LocalDate locDate = LocalDate.of(2022, 12, 10);
-        LocalDateTime locDateTime = LocalDateTime.of(locDate, locTime);
-        LocalDateTime birthDay = LocalDateTime.of(
-                LocalDate.of(1971,5,19),
-                LocalTime.of(11,30)
-        );
-
-        a.setEnd(LocalDateTime.now());
+    @Test
+    void testActivityHours(){
+        Activity a = new Activity(
+                "Test activity 1",
+                LocalDate.of(1994, 10, 30),
+                LocalDateTime.of(LocalDate.of(2022,12,10),
+                        LocalTime.of(22,00)));
+        a.setEndTime(LocalDateTime.of(
+                LocalDate.of(2022,12,11),
+                LocalTime.of(5, 45)));
+        a.setFinished(true);
+        var hours = a.getActiveHours();
+        System.out.printf("Hours = %.2f", hours);
+        assertEquals("7,75", String.format("%.2f",hours)); //
     }
 
     @Test
     void setStart() {
         Activity act = new Activity("Design Windows 12");
         LocalDate temp = LocalDate.of(1971,5,19);
-        act.setDate(temp);
-        LocalDate date = act.getDate();
+        act.setCreatedDate(temp);
+        LocalDate date = act.getCreatedDate();
         System.out.println(date);
         // Using two different assertEquals to have both as reference for later
         assertEquals(LocalDate.of(1971,05,19), date);
