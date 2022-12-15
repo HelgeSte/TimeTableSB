@@ -1,0 +1,10 @@
+INSERT INTO companies(CompanyName) VALUE ('MI5');
+INSERT INTO companies(CompanyName) VALUE ('The Phantom inc.');
+INSERT INTO companies(CompanyName) VALUE ('Disney');
+INSERT INTO companies(CompanyName) VALUE ('The Grey Cells Detective');
+INSERT INTO companies(CompanyName) VALUE ('The Mordor hategroup');
+INSERT INTO companies(CompanyName) VALUE ('Treehuggers');
+INSERT INTO companies(CompanyName) VALUE ('I am Zlatan');
+INSERT INTO companies(CompanyName) VALUE ('Suffrage');
+INSERT INTO companies(CompanyName) VALUE ('Overlook Forever');
+INSERT INTO companies(CompanyName) VALUE ('The First of Everything');

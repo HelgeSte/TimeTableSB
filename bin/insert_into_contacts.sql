@@ -1,0 +1,11 @@
+INSERT INTO contacts(FirstName,LastName,Email,Phone,CompanyID) VALUES ('Mickey','Mouse','mickey@disney.com','555-94001',3);
+INSERT INTO contacts(FirstName,LastName,Email,Phone,CompanyID) VALUES ('Hercules','Poirot','hercules.poirot@geniousdetective.co.uk','555-94002',4);
+INSERT INTO contacts(FirstName,LastName,Email,Phone,CompanyID) VALUES ('Jack','Torrance','thejanitor@overlook.com','555-94003',9);
+INSERT INTO contacts(FirstName,LastName,Email,Phone,CompanyID) VALUES ('Eowyn','Eomondsdottir','eowyn@middleearth.suffrage.co.uk','555-94004',8);
+INSERT INTO contacts(FirstName,LastName,Email,Phone,CompanyID) VALUES ('James','Bond','james.bond@mi5.co.uk','555-94005',1);
+INSERT INTO contacts(FirstName,LastName,Email,Phone,CompanyID) VALUES ('Jennifer','Lawrence','jennifer@firstactionheroette.com','555-94006',10);
+INSERT INTO contacts(FirstName,LastName,Email,Phone,CompanyID) VALUES ('Zlatan','Ibrahimovic','zlatan@wtfru.com','555-94007',7);
+INSERT INTO contacts(FirstName,LastName,Email,Phone,CompanyID) VALUES ('Sam','Gamgee','sammy@ihatemordor.shire','555-94008',5);
+INSERT INTO contacts(FirstName,LastName,Email,Phone,CompanyID) VALUES ('Fangorn','Treebard','treebeard@treehuggers.com','555-94009',6);
+INSERT INTO contacts(FirstName,LastName,Email,Phone,CompanyID) VALUES ('Christopher','Walker','the21st@thephantom.bg','555-94010',2);
+INSERT INTO contacts(FirstName,LastName,Email,Phone,CompanyID) VALUES ('Fabian','Betong','fabian@oslo.terror.no','555-94011',5);
