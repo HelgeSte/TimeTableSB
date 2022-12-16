@@ -1,10 +1,11 @@
-INSERT INTO companies(CompanyName) VALUE ('MI5');
-INSERT INTO companies(CompanyName) VALUE ('The Phantom inc.');
-INSERT INTO companies(CompanyName) VALUE ('Disney');
-INSERT INTO companies(CompanyName) VALUE ('The Grey Cells Detective');
-INSERT INTO companies(CompanyName) VALUE ('The Mordor hategroup');
-INSERT INTO companies(CompanyName) VALUE ('Treehuggers');
-INSERT INTO companies(CompanyName) VALUE ('I am Zlatan');
-INSERT INTO companies(CompanyName) VALUE ('Suffrage');
-INSERT INTO companies(CompanyName) VALUE ('Overlook Forever');
-INSERT INTO companies(CompanyName) VALUE ('The First of Everything');
+INSERT INTO companies(company_name) VALUE ('MI5');
+INSERT INTO companies(company_name) VALUE ('The Phantom inc.');
+INSERT INTO companies(company_name) VALUE ('Disney');
+INSERT INTO companies(company_name) VALUE ('The Grey Cells Detective');
+INSERT INTO companies(company_name) VALUE ('The Mordor hategroup');
+INSERT INTO companies(company_name) VALUE ('Treehuggers');
+INSERT INTO companies(company_name) VALUE ('I am Zlatan');
+INSERT INTO companies(company_name) VALUE ('Suffrage');
+INSERT INTO companies(company_name) VALUE ('Overlook Forever');
+INSERT INTO companies(company_name) VALUE ('The First of Everything');
+

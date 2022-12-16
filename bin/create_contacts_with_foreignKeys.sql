@@ -1,10 +1,10 @@
  USE sb_timetable;
 CREATE TABLE Contacts (
-	ContactID int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    FirstName varchar(50),
-    LastName varchar(50),
+	contact_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    first_name varchar(50),
+    last_name varchar(50),
     Email varchar(255),
     Phone varchar(50),
-    CompanyID int,
-    FOREIGN KEY (CompanyID) REFERENCES Companies(CompanyID)
+    company_id int,
+    FOREIGN KEY (company_id) REFERENCES Companies(company_id)
 );

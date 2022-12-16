@@ -1,10 +1,10 @@
  USE sb_timetable;
 CREATE TABLE Projects (
-	ProjectId int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    ProjectName varchar(255),
-    isActive boolean,
-    EmployeeID int,
-    CustomerID int,
-    FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID),
-    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+	project_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    project_name varchar(255),
+    active boolean,
+    employee_id int,
+    company_id int,
+    FOREIGN KEY (employee_id) REFERENCES Employees(employee_id),
+    FOREIGN KEY (company_id) REFERENCES Companies(company_id)
 );
