@@ -1,5 +1,5 @@
  USE sb_timetable;
  create table Customers
     (
-  CustomerId int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-CompanyName varchar(255));
+  customer_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+company_name varchar(255));
