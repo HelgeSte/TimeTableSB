@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class Activity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="ActivityID")
+    @Column(name="activity_id")
     private long activityID;
     @Column(name="text")
     private String text;

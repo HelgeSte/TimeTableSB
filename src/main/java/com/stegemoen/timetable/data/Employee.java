@@ -7,11 +7,11 @@ import javax.persistence.*;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="EmployeeID")
+    @Column(name="employee_id")
     private long id;
-    @Column(name="FirstName")
+    @Column(name="first_name")
     private String firstName;
-    @Column(name="LastName")
+    @Column(name="last_name")
     private String lastName;
     @Column(name="Email")
     private String email;

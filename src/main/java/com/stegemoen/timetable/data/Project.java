@@ -7,12 +7,12 @@ import javax.persistence.*;
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="ProjectID")
+    @Column(name="project_id")
     private long id;
-    @Column(name="ProjectName")
+    @Column(name="project_name")
     private String projectName;
-    @Column(name="isActive")
-    private boolean isActive;
+    /*@Column(name="isActive")
+    private int isActive;*/
 
     public long getId() {
         return id;
@@ -30,20 +30,19 @@ public class Project {
         this.projectName = projectName;
     }
 
-    public boolean isActive() {
+    /*public int isActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(int active) {
         isActive = active;
-    }
+    }*/
 
     @Override
     public String toString() {
         return "Project{" +
                 "id=" + id +
                 ", projectName='" + projectName + '\'' +
-                ", isActive=" + isActive +
                 '}';
     }
 }
