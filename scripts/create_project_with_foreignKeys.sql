@@ -1,5 +1,5 @@
  USE sb_timetable;
-CREATE TABLE Projects (
+CREATE TABLE Project (
 	project_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     project_name varchar(255),
     active boolean,
