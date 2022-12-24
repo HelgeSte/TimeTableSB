@@ -1,7 +1,7 @@
 package com.stegemoen.timetable.domain;
 
 import com.stegemoen.timetable.repo.EmployeeRepository;
-// import org.junit.jupiter.api.Test;
+// import org.junit.jupiter.api.Test; // Intelli-J adds this import and it fails with Spring Boot test
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,5 +1,4 @@
 package com.stegemoen.timetable.domain;
-
 import javax.persistence.*;
 
 @Entity
