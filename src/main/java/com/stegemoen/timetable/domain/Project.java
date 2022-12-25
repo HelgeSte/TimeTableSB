@@ -16,6 +16,8 @@ public class Project {
     @JoinColumn
     private Employee employee;
 
+    // ToDo: One to many join with activity
+
     public Project(String projectName, Employee employee) {
         this.projectName = projectName;
         this.employee = employee;
