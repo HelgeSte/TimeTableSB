@@ -4,6 +4,7 @@ import com.stegemoen.timetable.repo.CompanyRepository;
 import com.stegemoen.timetable.repo.ContactRepository;
 import com.stegemoen.timetable.repo.EmployeeRepository;
 // import org.junit.jupiter.api.Test; // Intelli-J adds this import and it fails with Spring Boot test
+import com.stegemoen.timetable.repo.ProjectRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class CrudRepositoryTests {
 
     @Autowired
     ContactRepository contactRepository;
+    @Autowired
+    private ProjectRepository projectRepository;
+
     @Test
     public void simpleEmployeCrudExample() {
         employeeRepository.save(new Employee(new Person("Jane", "Doe"), 20));
@@ -71,5 +75,28 @@ public class CrudRepositoryTests {
         companyRepository.deleteAll();
         System.out.println("************ Companies removed ************");
         companyRepository.findAll().forEach(System.out::println);
+    }
+
+    @Test
+    public void simpleCompanyProjectCrudExample() {
+        Employee peter = new Employee(new Person("Peter", "Griffin"), 50);
+        Employee bezos = new Employee(new Person("Bezos", "Jeff") ,55);
+        employeeRepository.save(peter);
+        employeeRepository.save(bezos);
+
+
+        Project teslaRocket = new Project("Expand to Mars", bezos);
+        Project birdie2 = new Project("Bird is the Word",peter);
+        Project birdie1 = new Project("Have you heard?", peter);
+
+        projectRepository.save(birdie1);
+        projectRepository.saveAll(List.of(birdie2, teslaRocket));
+
+        System.out.println("************ Original Projects ************");
+        projectRepository.findAll().forEach(System.out::println);
+
+        projectRepository.deleteAll();
+        System.out.println("************ Projects removed ************");
+        projectRepository.findAll().forEach(System.out::println);
     }
 }

@@ -19,6 +19,8 @@ public class Company {
     cascade = CascadeType.ALL)
     private List<Contact> contacts = new ArrayList<>();
 
+
+
     public Company(String companyName) {
         this.companyName = companyName;
     }

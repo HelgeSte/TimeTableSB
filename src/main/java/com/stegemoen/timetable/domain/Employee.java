@@ -1,5 +1,7 @@
 package com.stegemoen.timetable.domain;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="EMPLOYEE")
@@ -20,6 +22,11 @@ public class Employee {
     }
 
     protected Employee(){}
+
+    @OneToMany(mappedBy="employee", // company from ManyToOne mapping in Contact
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
+    private List<Project> projectList = new ArrayList<>();
 
     public Employee(Integer employeeId, Integer age, Person person) {
         this.employeeId = employeeId;
