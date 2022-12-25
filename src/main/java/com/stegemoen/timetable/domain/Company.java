@@ -14,13 +14,17 @@ public class Company {
     @Column
     private String companyName;
 
-    @OneToMany(mappedBy="company", // company from ManyToOne mapping in Contact
+    @Column
+    private String contactName;
+
+    @OneToMany(mappedBy="company",
     fetch = FetchType.EAGER,
     cascade = CascadeType.ALL)
-    private List<Contact> contacts = new ArrayList<>();
+    private List<Project> projectList = new ArrayList<>();
 
-    public Company(String companyName) {
+    public Company(String companyName, String contactName) {
         this.companyName = companyName;
+        this.contactName = contactName;
     }
 
     protected Company() {
@@ -34,16 +38,12 @@ public class Company {
         return companyName;
     }
 
-    public void addContact(Contact contact){
-        contacts.add(contact);
-    }
 
     @Override
     public String toString() {
         return "Company{" +
                 "companyId=" + companyId +
                 ", companyName='" + companyName + '\'' +
-                ", contacts=" + contacts +
                 '}';
     }
 }

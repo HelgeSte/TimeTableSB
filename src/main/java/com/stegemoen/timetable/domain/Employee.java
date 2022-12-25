@@ -1,5 +1,7 @@
 package com.stegemoen.timetable.domain;
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="EMPLOYEE")
@@ -26,6 +28,12 @@ public class Employee {
         this.age = age;
         this.person = person;
     }
+
+    // ToDo: Most employees aint project managers
+    /*@OneToMany(mappedBy="projectManager",
+    fetch=FetchType.EAGER,
+    cascade=CascadeType.ALL)
+    private List<Project> projectList = new ArrayList<>();*/
 
     public Integer getEmployeeId() {
         return employeeId;
