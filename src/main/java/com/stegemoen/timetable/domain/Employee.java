@@ -34,6 +34,12 @@ public class Employee {
         this.person = person;
     }
 
+    // ToDo: Most employees aint project managers
+    /*@OneToMany(mappedBy="projectManager",
+    fetch=FetchType.EAGER,
+    cascade=CascadeType.ALL)
+    private List<Project> projectList = new ArrayList<>();*/
+
     public Integer getEmployeeId() {
         return employeeId;
     }
