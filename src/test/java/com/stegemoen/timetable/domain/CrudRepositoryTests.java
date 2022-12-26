@@ -1,6 +1,7 @@
 package com.stegemoen.timetable.domain;
 
 import com.stegemoen.timetable.repo.CompanyRepository;
+import com.stegemoen.timetable.repo.ContactRepository;
 import com.stegemoen.timetable.repo.EmployeeRepository;
 // import org.junit.jupiter.api.Test; // Intelli-J adds this import and it fails with Spring Boot test
 import com.stegemoen.timetable.repo.ProjectRepository;
@@ -23,7 +24,9 @@ public class CrudRepositoryTests {
     CompanyRepository companyRepository;
 
     @Autowired
-    ProjectRepository projectRepository;
+    ContactRepository contactRepository;
+    @Autowired
+    private ProjectRepository projectRepository;
 
     @Test
     public void simpleEmployeCrudExample() {
@@ -50,27 +53,43 @@ public class CrudRepositoryTests {
     }
 
     @Test
-    public void simpleProjectActivityCrudExample() {
+    public void simpleCompanyContactCrudExample() {
+        Company apple = new Company("Apple");
+        Company ms = new Company("Microsoft");
 
-        // replacing contact objects with Strings
-        String mickey = "Mickey Mouse";
-        String linus = "Linus Torvalds";
-        // have simplified companies, to avoid 2 foreign id's in the company class
-        Company linux = new Company("Linux", mickey);
-        Company disney = new Company("Disney", linus);
+        companyRepository.save(apple);
+        companyRepository.save(ms);
 
-        companyRepository.save(linux);
-        companyRepository.save(disney);
-        Project project = new Project(
-                "The Linux Documentation Project", true, linux);
-        System.out.println("Saving project");
-        projectRepository.save(project);
+        System.out.println("************ Original Companies ************");
+        companyRepository.findAll().forEach(System.out::println);
 
+        companyRepository.deleteAll();
+        System.out.println("************ Companies removed ************");
+        companyRepository.findAll().forEach(System.out::println);
+    }
+
+    @Test
+    public void simpleCompanyProjectCrudExample() {
+        Company lamborghini = new Company("Lamborghini");
+        Company ferrari = new Company("Ferrari");
+        companyRepository.saveAll(List.of(lamborghini,ferrari));
+
+        Employee peter = new Employee(new Person("Peter", "Griffin"),
+                32);
+        Employee daisy = new Employee(new Person("Daisy", "Duck"), 29);
+        employeeRepository.saveAll(List.of(peter, daisy));
+
+
+        Project fh5 = new Project("Make sure no cars are changed", peter, lamborghini);
+        Project fh5interior = new Project("Control interiors in FH5", daisy, ferrari);
+
+        projectRepository.saveAll(List.of(fh5, fh5interior));
+
+        System.out.println("************ Original Projects ************");
         projectRepository.findAll().forEach(System.out::println);
-        System.out.println("Deleting projects");
+
         projectRepository.deleteAll();
+        System.out.println("************ Projects removed ************");
         projectRepository.findAll().forEach(System.out::println);
-
-
     }
 }

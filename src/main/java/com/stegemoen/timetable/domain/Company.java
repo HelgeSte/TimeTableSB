@@ -14,17 +14,17 @@ public class Company {
     @Column
     private String companyName;
 
-    @Column
-    private String contactName;
+    @OneToMany(mappedBy="company", // company from ManyToOne mapping in Contact
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
+    private List<Project> projects = new ArrayList<>();
 
-    @OneToMany(mappedBy="company",
-    fetch = FetchType.EAGER,
-    cascade = CascadeType.ALL)
-    private List<Project> projectList = new ArrayList<>();
-
-    public Company(String companyName, String contactName) {
+    public Company(String companyName) {
         this.companyName = companyName;
-        this.contactName = contactName;
+    }
+    public Company(Integer companyId, String companyName) {
+        this.companyId = companyId;
+        this.companyName = companyName;
     }
 
     protected Company() {
@@ -33,9 +33,16 @@ public class Company {
     public Integer getCompanyId() {
         return companyId;
     }
+    public void setCompanyId(Integer companyId){
+        this.companyId = companyId;
+    }
 
     public String getCompanyName() {
         return companyName;
+    }
+
+    public void addProject(Project project){
+        projects.add(project);
     }
 
 

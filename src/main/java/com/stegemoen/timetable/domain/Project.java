@@ -1,11 +1,9 @@
 package com.stegemoen.timetable.domain;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name="ACTIVITY")
+@Table(name="project")
 public class Project {
     @Id
     @GeneratedValue
@@ -14,40 +12,35 @@ public class Project {
     @Column
     private String projectName;
 
-    @Column
-    private boolean active;
+    @ManyToOne
+    @JoinColumn
+    private Employee employee;
 
     @ManyToOne
     @JoinColumn
     private Company company;
 
-
-    public Project(String projectName, boolean active,Company company) {
-        this.company = company;
+    public Project(String projectName, Employee employee, Company company) {
         this.projectName = projectName;
-        this.active = active;
+        this.employee = employee;
+        this.company = company;
     }
 
-    protected Project() {
+    protected Project(){}
+
+    public Integer getProjectId() {
+        return projectId;
     }
 
     public String getProjectName() {
         return projectName;
     }
 
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public void setActivityList(){
-
+    public Company getCompany() {
+        return company;
     }
 }

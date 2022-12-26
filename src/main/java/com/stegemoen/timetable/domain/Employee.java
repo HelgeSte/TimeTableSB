@@ -23,6 +23,11 @@ public class Employee {
 
     protected Employee(){}
 
+    @OneToMany(mappedBy="employee", // company from ManyToOne mapping in Contact
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
+    private List<Project> projectList = new ArrayList<>();
+
     public Employee(Integer employeeId, Integer age, Person person) {
         this.employeeId = employeeId;
         this.age = age;
