@@ -22,12 +22,19 @@ public class Company {
     public Company(String companyName) {
         this.companyName = companyName;
     }
+    public Company(Integer companyId, String companyName) {
+        this.companyId = companyId;
+        this.companyName = companyName;
+    }
 
     protected Company() {
     }
 
     public Integer getCompanyId() {
         return companyId;
+    }
+    public void setCompanyId(Integer companyId){
+        this.companyId = companyId;
     }
 
     public String getCompanyName() {
