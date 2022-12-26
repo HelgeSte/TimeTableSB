@@ -60,15 +60,6 @@ public class CrudRepositoryTests {
         companyRepository.save(apple);
         companyRepository.save(ms);
 
-        Contact bill = new Contact(new Person("Bill", "Gates"),
-                "bill@ms.com","01",
-                ms);
-        Contact steve = new Contact(new Person("Steve", "Ballmer"),
-                "steve.ballmer@microsoft.com", "02", ms);
-        Contact jobs = new Contact(new Person("Steve", "Jobs"),
-                "steve@apple.com", "1", apple);
-        contactRepository.saveAll(List.of(bill, steve, jobs));
-
         System.out.println("************ Original Companies ************");
         companyRepository.findAll().forEach(System.out::println);
 
@@ -79,18 +70,20 @@ public class CrudRepositoryTests {
 
     @Test
     public void simpleCompanyProjectCrudExample() {
-        Employee peter = new Employee(new Person("Peter", "Griffin"), 50);
-        Employee bezos = new Employee(new Person("Bezos", "Jeff") ,55);
-        employeeRepository.save(peter);
-        employeeRepository.save(bezos);
+        Company lamborghini = new Company("Lamborghini");
+        Company ferrari = new Company("Ferrari");
+        companyRepository.saveAll(List.of(lamborghini,ferrari));
+
+        Employee peter = new Employee(new Person("Peter", "Griffin"),
+                32);
+        Employee daisy = new Employee(new Person("Daisy", "Duck"), 29);
+        employeeRepository.saveAll(List.of(peter, daisy));
 
 
-        Project teslaRocket = new Project("Expand to Mars", bezos);
-        Project birdie2 = new Project("Bird is the Word",peter);
-        Project birdie1 = new Project("Have you heard?", peter);
+        Project fh5 = new Project("Make sure no cars are changed", peter, lamborghini);
+        Project fh5interior = new Project("Control interiors in FH5", daisy, ferrari);
 
-        projectRepository.save(birdie1);
-        projectRepository.saveAll(List.of(birdie2, teslaRocket));
+        projectRepository.saveAll(List.of(fh5, fh5interior));
 
         System.out.println("************ Original Projects ************");
         projectRepository.findAll().forEach(System.out::println);

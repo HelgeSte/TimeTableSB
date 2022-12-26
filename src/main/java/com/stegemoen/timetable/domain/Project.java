@@ -16,11 +16,14 @@ public class Project {
     @JoinColumn
     private Employee employee;
 
-    // ToDo: One to many join with activity
+    @ManyToOne
+    @JoinColumn
+    private Company company;
 
-    public Project(String projectName, Employee employee) {
+    public Project(String projectName, Employee employee, Company company) {
         this.projectName = projectName;
         this.employee = employee;
+        this.company = company;
     }
 
     protected Project(){}
@@ -35,5 +38,13 @@ public class Project {
 
     public Employee getEmployee() {
         return employee;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }

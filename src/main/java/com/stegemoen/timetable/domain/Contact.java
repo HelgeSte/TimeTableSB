@@ -10,23 +10,18 @@ public class Contact {
     public Integer contactId;
 
     @Embedded
-    private Person person;
+    private Person contactName;
 
     @Column
-    private String email;
+    private String contactEmail;
 
     @Column
-    private String phone;
+    private String contactPhone;
 
-    @ManyToOne
-    @JoinColumn
-    private Company company;
-
-    public Contact(Person person, String email, String phone, Company company) {
-        this.person = person;
-        this.email = email;
-        this.phone = phone;
-        this.company = company;
+    public Contact(Person contactName, String contactEmailx , String contactPhone) {
+        this.contactName = contactName;
+        this.contactEmail = contactEmail;
+        this.contactPhone = contactPhone;
     }
 
     protected Contact() {
@@ -36,19 +31,15 @@ public class Contact {
         return contactId;
     }
 
-    public Person getPerson() {
-        return person;
+    public Person getContactName() {
+        return contactName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getContactEmail() {
+        return contactEmail;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setCompany(Company company){
-        this.company = company;
+    public String getContactPhone() {
+        return contactPhone;
     }
 }

@@ -15,11 +15,9 @@ public class Company {
     private String companyName;
 
     @OneToMany(mappedBy="company", // company from ManyToOne mapping in Contact
-    fetch = FetchType.EAGER,
-    cascade = CascadeType.ALL)
-    private List<Contact> contacts = new ArrayList<>();
-
-
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL)
+    private List<Project> projects = new ArrayList<>();
 
     public Company(String companyName) {
         this.companyName = companyName;
@@ -36,16 +34,16 @@ public class Company {
         return companyName;
     }
 
-    public void addContact(Contact contact){
-        contacts.add(contact);
+    public void addProject(Project project){
+        projects.add(project);
     }
+
 
     @Override
     public String toString() {
         return "Company{" +
                 "companyId=" + companyId +
                 ", companyName='" + companyName + '\'' +
-                ", contacts=" + contacts +
                 '}';
     }
 }
