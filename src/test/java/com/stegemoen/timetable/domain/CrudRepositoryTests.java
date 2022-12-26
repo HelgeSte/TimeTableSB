@@ -1,9 +1,7 @@
 package com.stegemoen.timetable.domain;
 
 import com.stegemoen.timetable.repo.CompanyRepository;
-import com.stegemoen.timetable.repo.ContactRepository;
 import com.stegemoen.timetable.repo.EmployeeRepository;
-// import org.junit.jupiter.api.Test; // Intelli-J adds this import and it fails with Spring Boot test
 import com.stegemoen.timetable.repo.ProjectRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,8 +21,6 @@ public class CrudRepositoryTests {
     @Autowired
     CompanyRepository companyRepository;
 
-    @Autowired
-    ContactRepository contactRepository;
     @Autowired
     private ProjectRepository projectRepository;
 
